@@ -1,8 +1,16 @@
 <!doctype html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>转接中……</title>
+		<style>
+			body{font-size:24px;}
+			#red{color:red;}
+			#yellow{color:#ee9303;}
+			#green{color:green;}
+			#bigsize{font-size:50px;}
+		</style>
 		<script type="text/javascript">
 			function ping(img,router){
 				var objIMG=new Image();
@@ -21,16 +29,30 @@
 			var target="http://acegb12.s602.xrea.com";
 			var trans="http://jiudu1.github.io/1/tt.html";
 			var dots=imgs.length;
+			var objDIV=document.getElementById("time");
+			var start='<span id="green"><p><span id="bigsize">😊</span>正在为您自动转接，请稍候……</p></span>';
+			var longtime='<span id="yellow"><p><span id="bigsize">😓</span>正在努力为您转接……</p><p>但由于网速较慢，需要一些时间，请耐心等候！</p></span>';
+			var timeout='<span id="red"><p><span id="bigsize">😢</span>对不起！页面转接遇到了一点问题，请刷新或重新打开本网址！</p></span>';
 			for(var i=0;i<dots;i++){
 				router=ping(imgs[i],router);
+			}
+			function println(str){
+				if(!objDIV){
+					objDIV=document.createElement("div");
+					objDIV.id="time";
+					objDIV.innerHTML=str;
+					document.body.appendChild(objDIV);
+				}else{
+					objDIV.innerHTML=str;
+				}
 			}
 		</script>
 	</head>
 	<body>
-		<p>正在为您自动转接，请稍候……</p>  
-		<p>如不能打开网页，请重试。由于网络原因，有时转接需要较长时间！</p>  
 		<script type="text/javascript">
-			document.write("OK:"+top.window.location.href);
+			setTimeout('println(start)',0);
+			setTimeout('println(longtime)',6000);
+			setTimeout('println(timeout)',25000);
 		</script>
 	</body>
 </html>
