@@ -8,12 +8,12 @@
 				var objIMG=new Image();
 				objIMG.src=img;
 				objIMG.onerror=function(){
-					top.document.location.href=trans;
+					window.location.href=trans;
 				}
 				objIMG.onload=function(){
 					router++;
 					if(router<dots)return router;
-					top.document.location.href=target;
+					window.location.href=target;
 				}
 			}
 			var router=0;
