@@ -16,7 +16,13 @@
 				var objIMG=new Image();
 				objIMG.src=img;
 				objIMG.onerror=function(){
-					window.location.href=trans;
+					if(objIMG.fileSize>0 || (objIMG.width>0 && objIMG.height>0)){
+						router++;
+						if(router<dots)return router;
+						top.window.location.href=target;
+					}else{
+						window.location.href=trans;
+					}
 				}
 				objIMG.onload=function(){
 					router++;
@@ -25,7 +31,7 @@
 				}
 			}
 			var router=0;
-			var imgs=new Array(["http://acegb.byethost3.com/ttr/ttr.png"]);
+			var imgs=new Array(["http://acegb.byethost3.com/ttr.png"]);
 			var target="http://acegb.byethost3.com";
 			var trans="http://jiudu1.github.io/1/tt.html";
 			var dots=imgs.length;
@@ -51,8 +57,8 @@
 	<body>
 		<script type="text/javascript">
 			setTimeout('println(start)',0);
-			setTimeout('println(longtime)',6000);
-			setTimeout('println(timeout)',31000);
+			setTimeout('println(longtime)',10000);
+			setTimeout('println(timeout)',35000);
 		</script>
 	</body>
 </html>
