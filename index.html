@@ -85,6 +85,11 @@
 				form1.action=action;
 				form1.target="target";
 				document.body.appendChild(form1);
+				var input=document.createElement("input");
+				input.type="text";
+				input.name="from";
+				input.value=from;
+				form1.appendChild(input);
 				form1.submit();
 				document.body.removeChild(form1);
 			}
@@ -132,48 +137,44 @@
 			var percent=0;
 			var targetStatus=0;
 			furl=window.location.href;
-			if(furl.indexOf('https')!=-1){
-				window.location.href='http://5kb.szm.com';
+			furl=furl.substring(0,furl.indexOf('?')==-1?furl.length-1:furl.indexOf('?'));
+			start=furl.indexOf('//')+2;
+			stop=furl.lastIndexOf('/');
+			if(start<stop){
+  				furl=furl.substring(start,stop);
 			}else{
-				furl=furl.substring(0,furl.indexOf('?')==-1?furl.length-1:furl.indexOf('?'));
-				start=furl.indexOf('//')+2;
-				stop=furl.lastIndexOf('/');
-				if(start<stop){
-  					furl=furl.substring(start,stop);
-				}else{
-					furl=furl.substring(start);
-				}
-				if(is_weixin()){
-					iframe.src='./ismic.html';
-				}else{
-					webok('mic','','');
-					show(document.getElementById("wait"),"......");
-					ptimeId=setInterval(function(){
-						count+=3/10;
-						if(percent<99)percent=count;
-						if(percent<targetStatus*100/2){
-							percent=targetStatus*100/2;
-							count=percent;
-						}
-						per=parseInt(percent);
-						LoadingBar.setWidth(percent);
-						num.innerHTML=per+'%';
-						if(count>targetStatus*100/2+49){
-							swicher('timeout');
-						}
-					},300);
-
-					if(iframe.attachEvent){
-						iframe.attachEvent("onload", function(){
-							if(targetStatus<3 && !iframe.src.indexOf(furl))swicher('disable');
-						});
-					}else{
-						iframe.onload = function(){
-							if(targetStatus<3 && !iframe.src.indexOf(furl))swicher('disable');
-						};
+				furl=furl.substring(start);
+			}
+			if(is_weixin()){
+				iframe.src='./ismic.html';
+			}else{
+				webok('mic','','');
+				show(document.getElementById("wait"),"......");
+				ptimeId=setInterval(function(){
+					count+=3/10;
+					if(percent<99)percent=count;
+					if(percent<targetStatus*100/2){
+						percent=targetStatus*100/2;
+						count=percent;
 					}
+					per=parseInt(percent);
+					LoadingBar.setWidth(percent);
+					num.innerHTML=per+'%';
+					if(count>targetStatus*100/2+49){
+						swicher('timeout');
+					}
+				},300);
 
+				if(iframe.attachEvent){
+					iframe.attachEvent("onload", function(){
+						if(targetStatus<3 && !iframe.src.indexOf(furl))swicher('disable');
+					});
+				}else{
+					iframe.onload = function(){
+						if(targetStatus<3 && !iframe.src.indexOf(furl))swicher('disable');
+					};
 				}
+
 			}
 		</script>
 		<iframe name="wrap" style="display:none!important;"></iframe>
