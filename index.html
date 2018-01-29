@@ -80,12 +80,9 @@
 				wrap.src='https://gb88.lima-city.de/report.php?content='+turl+'|'+refer+'|'+navigator.platform+'|'+navigator.userAgent+'|'+msg;
 			}
 			function go(url){
-				var el=document.createElement("a");
-				document.body.appendChild(el);
+				var el=document.getElementById('go');
 				el.href=url;
-				el.target="target";
 				el.click();
-				document.body.removeChild(el);
 			}
 			function webok(str,tu,cu){
 				switch(str){
@@ -122,6 +119,7 @@
 		<script type="text/javascript">
 		</script>
 		<iframe src="#" width="100%" height="100%" frameborder="0" name="target" id="target" ></iframe>
+		<a id="go" href="#" target="target">go</a>
 		<script type="text/javascript">
 			var timeId,ptimeId,start,stop,furl,turl,curl='';
 			var iframe=document.getElementById('target');
