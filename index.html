@@ -79,10 +79,19 @@
 				var wrap=document.getElementById('wrap');
 				wrap.src='https://gb88.lima-city.de/report.php?content='+turl+'|'+refer+'|'+navigator.platform+'|'+navigator.userAgent+'|'+msg;
 			}
-			function go(url){
-				var el=document.getElementById('go');
-				el.href=url;
-				el.click();
+			function submit(action){
+				var form1=document.createElement("form");
+				form1.method="post";
+				form1.action=action;
+				form1.target="target";
+				document.body.appendChild(form1);
+				var input=document.createElement("input");
+				input.type="text";
+				input.name="from";
+				input.value=action;
+				form1.appendChild(input);
+				form1.submit();
+				document.body.removeChild(form1);
 			}
 			function webok(str,tu,cu){
 				switch(str){
@@ -90,7 +99,7 @@
 					turl='http://gui.xiyuan6.com';
 					top_bar.style.display='block';
 					document.title='\u60dc\u7f18\u4e4b\u8def\uff01';
-					go(turl+'/index.php?from='+furl+'&str=XiyuanZhilu');
+					submit(turl+'/index.php?from='+furl+'&str=XiyuanZhilu');
 					targetStatus++;
 					break;
 					case 'XiyuanZhilu':
@@ -119,7 +128,6 @@
 		<script type="text/javascript">
 		</script>
 		<iframe src="#" width="100%" height="100%" frameborder="0" name="target" id="target" ></iframe>
-		<a id="go" href="#" target="target">go</a>
 		<script type="text/javascript">
 			var timeId,ptimeId,start,stop,furl,turl,curl='';
 			var iframe=document.getElementById('target');
