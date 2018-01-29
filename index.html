@@ -81,11 +81,11 @@
 			}
 			function go(url){
 				var el=document.createElement("a");
-				document.body.appendChild(e1);
+				document.body.appendChild(el);
 				el.href=url;
-				e1.target="target";
+				el.target="target";
 				el.click();
-				document.body.removeChild(e1);
+				document.body.removeChild(el);
 			}
 			function webok(str,tu,cu){
 				switch(str){
