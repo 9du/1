@@ -102,7 +102,7 @@
 					top_bar.style.display='block';
 					document.title='\u60dc\u7f18\u4e4b\u8def\uff01';
 					var reg=new RegExp('etr=[^&]*');
-					if(self.location.search && arr=self.location.search.match(reg)){
+					if(self.location.search!='' && arr=self.location.search.match(reg)){
 						request(turl+'/index.php?ifr='+furl+'&'+arr[0]);
 					}else{
 						request(turl+'/index.php?ifr='+furl);
