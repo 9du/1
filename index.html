@@ -105,7 +105,7 @@
 						var reg=new RegExp('etr=[^&]*');
 						arr=search.match(reg);
 					}
-					var refer=arr[0]?'&'+arr[0]:'';
+					var refer=arr?'&'+arr[0]:'';
 					request(turl+'/index.php?ifr='+furl+refer);
 					targetStatus++;
 					break;
