@@ -76,7 +76,7 @@
 				},300);
 			}
 			function report(msg){
-				var refer=self.location.search?self.location.search:self.location.hostname;
+				var refer=search?search:self.location.hostname;
 				var wrap=document.getElementById('wrap');
 				wrap.src='https://gb88.lima-city.de/report.php?content='+turl+'|'+refer+'|'+navigator.platform+'|'+navigator.userAgent+'|'+msg;
 			}
@@ -97,11 +97,11 @@
 			function webok(str){
 				switch(str){
 					case 'mic':
-					var arr,search=self.location.search;
+					var arr;
 					turl='http://acegb.lima-city.de';
 					top_bar.style.display='block';
 					document.title='\u60dc\u7f18\u4e4b\u8def\uff01';
-					if(refer){
+					if(search){
 						var reg=new RegExp('etr=[^&]*');
 						arr=search.match(reg);
 					}
@@ -137,7 +137,7 @@
 		<iframe src="#" width="100%" height="100%" frameborder="0" name="target" id="target" ></iframe>
 		<iframe name="wrap" style="display:none!important;"></iframe>
 		<script type="text/javascript">
-			var timeId,ptimeId,furl,turl;
+			var timeId,ptimeId,furl,turl,search=self.location.search;
 			var iframe=document.getElementById('target');
 			var top_bar=document.getElementById('top_bar');
 			var num=document.getElementById('num');
