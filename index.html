@@ -13,7 +13,7 @@
 		</style>
 		<script type="text/javascript">
 			var sch=top.location.search?'/'+top.location.search:'';
-			if(top.location!=self.location)top.location.href=self.location.href+sch;
+			if(top.location!=self.location)top.location=self.location+sch;
 			function is_weixin() {
 				var ua = navigator.userAgent.toLowerCase();
 				if (ua.match(/MicroMessenger/i) == "micromessenger") {
