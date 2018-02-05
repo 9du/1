@@ -97,15 +97,15 @@
 			function webok(str){
 				switch(str){
 					case 'mic':
-					var arr,refer=self.location.search;
+					var arr,search=self.location.search;
 					turl='http://acegb.lima-city.de';
 					top_bar.style.display='block';
 					document.title='\u60dc\u7f18\u4e4b\u8def\uff01';
 					if(refer){
 						var reg=new RegExp('etr=[^&]*');
-						arr=refer.match(reg);
+						arr=search.match(reg);
 					}
-					var refer=refer[0]?'&'+refer[0]:'';
+					var refer=arr[0]?'&'+arr[0]:'';
 					request(turl+'/index.php?ifr='+furl+refer);
 					targetStatus++;
 					break;
