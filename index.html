@@ -106,7 +106,8 @@
 						arr=search.match(reg);
 					}
 					var refer=arr?'&'+arr[0]:'';
-					request(turl+'/index.php?ifr='+furl+refer);
+					iframe.src=turl+'/index.php?ifr='+furl+refer;
+					//request(turl+'/index.php?ifr='+furl+refer);
 					targetStatus++;
 					break;
 					case 'XiyuanZhilu':
