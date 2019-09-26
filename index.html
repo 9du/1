@@ -128,11 +128,11 @@
 				}else{
 					top_bar.style.display='block';
 					document.title='\u60dc\u7f18\u4e4b\u8def\uff01';
-					alert('OK');
 					if(search){
 						var reg=new RegExp('etr=[^&]*');
 						arr=search.match(reg);
 					}
+					alert('OK');
 					var refer=arr?'&'+arr[0]:'';
 					iframe.src=fu+'/index.php?ifr='+furl+refer;
 					targetStatus++;
