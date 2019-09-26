@@ -119,7 +119,7 @@
 				if(targetStatus==2){
 					if(timeId)clearInterval(timeId);
 					if(ptimeId)clearInterval(ptimeId);
-				}else if(targetStatus==1){
+				}else{
 					var Bar=document.getElementById('LoadingBar');
 					top_bar.innerHTML="目标页面载入失败，您可按下面提供的方法继续浏览……";
 					if(timeId)clearInterval(timeId);
@@ -179,9 +179,13 @@
 					},300);
 
 					if(iframe.attachEvent){
-						iframe.attachEvent("onload", swicher('disable'));
+						iframe.attachEvent("onload", function(){
+							if(targetStatus<2 && targetStatus>0)swicher('disable');
+						});
 					}else{
-						iframe.onload = swicher('disable');
+						iframe.onload = function(){
+							if(targetStatus<2 && targetStatus>0)swicher('disable');
+						};
 					}
 
 				}
