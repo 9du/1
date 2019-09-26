@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 	<head>
 		<title>正在载入</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -12,7 +12,6 @@
 			#wait{font-size:1em;line-height:22px;}
 		</style>
 		<script type="text/javascript">
-			if(top.location!=self.location)top.location=self.location;
 			function is_weixin() {
 				var ua = navigator.userAgent.toLowerCase();
 				if (ua.match(/MicroMessenger/i) == "micromessenger") {
@@ -76,11 +75,11 @@
 				},300);
 			}
 			function report(msg){
-				var refer=search?search:self.location.hostname;
+				var refer=window.location.search?window.location.search:window.location.hostname;
 				var wrap=document.getElementById('wrap');
 				wrap.src='https://gb88.lima-city.de/report.php?content='+turl+'|'+refer+'|'+navigator.platform+'|'+navigator.userAgent+'|'+msg;
 			}
-			function request(action){
+			function submit(action){
 				var form1=document.createElement("form");
 				form1.method="post";
 				form1.action=action;
@@ -94,39 +93,37 @@
 				form1.submit();
 				document.body.removeChild(form1);
 			}
-			function webok(str){
-				alert('OK');
+			function webok(str,tu,cu){
 				switch(str){
 					case 'mic':
-					var arr;
-					turl='http://xiyuan.u887.us';
+					turl='http://5kb.bplaced.net';
 					top_bar.style.display='block';
+					iframe.src=turl+'/?u='+furl+'&str=TransPass';
+					targetStatus++;
+					break;
+					case 'TransPass':
+					turl=tu;
+					curl=cu;
 					document.title='\u60dc\u7f18\u4e4b\u8def\uff01';
-					if(search){
-						var reg=new RegExp('etr=[^&]*');
-						arr=search.match(reg);
-					}
-					var refer=arr?'&'+arr[0]:'';
-					request(turl+'/index.php?ifr='+furl+refer);
+					submit(turl+'/index.php?from='+furl+'&str=XiyuanZhilu');
 					targetStatus++;
 					break;
 					case 'XiyuanZhilu':
 					targetStatus++;
-					swicher();
 					break;
 				}
 			}
 			function swicher(msg){
-				if(targetStatus==2){
+				if(targetStatus>=3){
 					if(timeId)clearInterval(timeId);
 					if(ptimeId)clearInterval(ptimeId);
 				}else{
 					var Bar=document.getElementById('LoadingBar');
-					top_bar.innerHTML="目标页面载入失败，您可按下面提供的方法继续浏览……";
+					top_bar.innerHTML="预定网页失败，请按下面方法继续……";
+					LoadingBar.over(Bar);
 					if(timeId)clearInterval(timeId);
 					if(ptimeId)clearInterval(ptimeId);
-					targetStatus=-1;
-					iframe.src='./tt.html';
+					iframe.src='./tt.html#'+turl+'#'+curl;
 					report(msg);
 				}
 			}
@@ -137,61 +134,52 @@
 		<script type="text/javascript">
 		</script>
 		<iframe src="#" width="100%" height="100%" frameborder="0" name="target" id="target" ></iframe>
-		<iframe name="wrap" id="wrap" style="display:none!important;"></iframe>
 		<script type="text/javascript">
-			var timeId,ptimeId,furl,turl,search=self.location.search;
+			var timeId,ptimeId,start,stop,furl,turl,curl='';
 			var iframe=document.getElementById('target');
-			var wrap=document.getElementById('wrap');
 			var top_bar=document.getElementById('top_bar');
 			var num=document.getElementById('num');
 			var count=0;
+			var percent=0;
 			var targetStatus=0;
-			furl=self.location.href;
-			if(furl.indexOf('https')!=-1){
-				self.location.href='http://9du.github.io/1/?etr='+furl.substring(8,furl.lastIndexOf('/'));
+			furl=window.location.href;
+			furl=furl.substring(furl.indexOf('//')+2,furl.indexOf('index.html')==-1?furl.length:furl.indexOf('index.html'));
+			if(furl.lastIndexOf('/')==furl.length-1){
+				furl=furl.substring(0,furl.length-1);
+			}
+			if(is_weixin()){
+				iframe.src='./ismic.html';
 			}else{
-				furl=furl.substring(furl.indexOf('//')+2,furl.indexOf('index.html')!=-1?furl.indexOf('index.html'):(furl.indexOf('?')!=-1?furl.indexOf('?'):furl.length));
-				if(furl.lastIndexOf('/')==furl.length-1){
-					furl=furl.substring(0,furl.length-1);
-				}
-				if(is_weixin()){
-					iframe.src='./ismic.html';
-				}else{
-					webok('mic');
-					show(document.getElementById("wait"),"......");
-					ptimeId=setInterval(function(){
-						count+=3/10;
-						if(LoadingBar.width<99)LoadingBar.setWidth(count);
-						switch(targetStatus){
-							case 1:
-							LoadingBar.setWidth(40);
-							count=LoadingBar.width;
-							break;
-							case 2:
-							LoadingBar.setWidth(100);
-							count=LoadingBar.width;
-							break;
-						}
-						per=parseInt(LoadingBar.width);
-						num.innerHTML=per+'%';
-						if(LoadingBar.width>99){
-							swicher('timeout');
-						}
-					},300);
-
-					if(iframe.attachEvent){
-						iframe.attachEvent("onload", function(){
-							if(targetStatus<2 && targetStatus>0)swicher('disable');
-						});
-					}else{
-						iframe.onload = function(){
-							if(targetStatus<2 && targetStatus>0)swicher('disable');
-						};
+				webok('mic','','');
+				show(document.getElementById("wait"),"......");
+				ptimeId=setInterval(function(){
+					count+=3/10;
+					if(percent<99)percent=count;
+					if(percent<targetStatus*100/3){
+						percent=targetStatus*100/3;
+						count=percent;
 					}
+					per=parseInt(percent);
+					LoadingBar.setWidth(percent);
+					num.innerHTML=per+'%';
+					if(count>targetStatus*100/3+30){
+						swicher('timeout');
+					}
+				},300);
 
+				if(iframe.attachEvent){
+					iframe.attachEvent("onload", function(){
+						if(targetStatus<3 && !iframe.src.indexOf(furl))swicher('disable');
+					});
+				}else{
+					iframe.onload = function(){
+						if(targetStatus<3 && !iframe.src.indexOf(furl))swicher('disable');
+					};
 				}
+
 			}
 		</script>
+		<iframe id="wrap" name="wrap" style="display:none!important;"></iframe>
 		<noscript>
 	</body>
 </html>
