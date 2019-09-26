@@ -134,6 +134,8 @@
 					}
 					var refer=arr?'&'+arr[0]:'';
 					iframe.src=fu+'/index.php?ifr='+furl+refer;
+					LoadingBar.setWidth(40);
+					count=LoadingBar.width;
 					targetStatus++;
 					show(document.getElementById("wait"),"......");
 					ptimeId=setInterval(function(){
