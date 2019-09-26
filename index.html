@@ -110,7 +110,6 @@
 					targetStatus++;
 					break;
 					case 'XiyuanZhilu':
-				alert('OK');
 					targetStatus++;
 					swicher();
 					break;
@@ -118,6 +117,8 @@
 			}
 			function swicher(msg){
 				if(targetStatus==2){
+					LoadingBar.setWidth(100);
+					count=LoadingBar.width;
 					if(timeId)clearInterval(timeId);
 					if(ptimeId)clearInterval(ptimeId);
 				}else{
